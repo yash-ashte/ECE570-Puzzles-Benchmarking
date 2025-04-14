@@ -133,7 +133,7 @@ def write_csv(data, filename, fieldnames=None):
         print(f"Successfully wrote {len(data)} records to {filename}")
 
 def main():
-    log_file_path = 'model_data.txt'
+    log_file_path = 'Blackbox_DQN/model_data.txt'
     try:
         with open(log_file_path, 'r') as f:
             log_content = f.read()
@@ -185,7 +185,7 @@ def main():
     # Write the CSV files
     print("\nWriting CSV files...")
     #write_csv(metrics_data, 'model_metrics.csv', metrics_fields)
-    write_csv(progress_data, 'Blackbox_Rewarded_PPO_training_progress.csv', progress_fields)
+    write_csv(progress_data, 'Blackbox_DQN/Blackbox_Rewarded_DQN_training_progress.csv', progress_fields)
     
     print("\nProcessing complete!")
 

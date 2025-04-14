@@ -12,12 +12,8 @@ def parse_training_log(log_content):
 
     for line in log_content.split('\n'):
         line = line.strip()
-        
-        # Debug: Print current parsing state
-        # print(f"Line: {line}")
-        # print(f"State: in_metric_block={in_metric_block}, current_section={current_section}")
 
-        # Parse timestep information
+        # Only print lines that indicate new metric data is being processed
         if line.startswith('Num timesteps:'):
             match = re.search(r'Num timesteps: (\d+)', line)
             if match:
@@ -34,7 +30,6 @@ def parse_training_log(log_content):
                     progress_entry['last_mean_length'] = float(last_match.group(1))
                 
                 progress_data.append(progress_entry)
-                # print(f"Added progress entry: {progress_entry}")
             continue
         
         # Start of a new metric block
@@ -42,7 +37,6 @@ def parse_training_log(log_content):
             in_metric_block = True
             current_metrics = {'timesteps': current_timestep}
             current_section = None
-            # print("Started new metric block")
             continue
         
         # End of metric block
@@ -51,7 +45,6 @@ def parse_training_log(log_content):
             # Only add if we have both rollout and train metrics
             if 'rollout_ep_len_mean' in current_metrics and 'train_approx_kl' in current_metrics:
                 metrics_data.append(current_metrics)
-                # print(f"Added metrics: {current_metrics}")
             current_metrics = {}
             current_section = None
             continue
@@ -61,7 +54,6 @@ def parse_training_log(log_content):
             section_match = re.search(r'\|\s*(\w+)/\s*\|', line)
             if section_match:
                 current_section = section_match.group(1).lower()
-                # print(f"New section: {current_section}")
             continue
         
         # Parse metric lines
@@ -86,13 +78,11 @@ def parse_training_log(log_content):
                     pass
                 
                 current_metrics[metric_name] = metric_value
-                # print(f"Added metric: {metric_name} = {metric_value}")
 
     # Handle the case where the file ends without a closing -----
     if in_metric_block and current_metrics:
         if 'rollout_ep_len_mean' in current_metrics and 'train_approx_kl' in current_metrics:
             metrics_data.append(current_metrics)
-            # print(f"Added final metrics: {current_metrics}")
 
     return metrics_data, progress_data
 
@@ -118,7 +108,7 @@ def write_csv(data, filename, fieldnames=None):
         print(f"Successfully wrote {len(data)} records to {filename}")
 
 def main():
-    log_file_path = 'A2C_rewarded.txt'
+    log_file_path = 'Blackbox_A2C/A2C_rewarded.txt'
     try:
         with open(log_file_path, 'r') as f:
             log_content = f.read()
@@ -129,18 +119,16 @@ def main():
     print("Starting log parsing...")
     metrics_data, progress_data = parse_training_log(log_content)
     
-    # Print parsing results for debugging
-    print(f"\nParsing results:")
-    print(f"- Found {len(metrics_data)} metric records")
-    print(f"- Found {len(progress_data)} progress records")
-    
+    # Debug: Print the first parsed metrics and progress to check
     if metrics_data:
-        print("\nSample metric record:")
-        print(metrics_data[0])
-    
+        print(f"\nSample parsed metric data: {metrics_data[0]}")
+    else:
+        print("No metric data found.")
+
     if progress_data:
-        print("\nSample progress record:")
-        print(progress_data[0])
+        print(f"\nSample parsed progress data: {progress_data[0]}")
+    else:
+        print("No progress data found.")
     
     # Define expected fields in order for metrics
     metrics_fields = [
@@ -166,7 +154,6 @@ def main():
     # Write the CSV files
     print("\nWriting CSV files...")
     write_csv(metrics_data, 'Blackbox_A2C/Blackbox_Rewarded_A2C_metrics.csv', metrics_fields)
-    #write_csv(progress_data, 'training_progress.csv')
     
     print("\nProcessing complete!")
 
