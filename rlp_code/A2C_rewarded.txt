@@ -1,0 +1,58 @@
+Args: Namespace(puzzle='blackbox', size=(128, 128), arg='w2h2m2M2', headless=False, allowundo=False, timesteps=50000, timelimit=10000, algorithm='A2C', obs_type='puzzle_state', seed=0, max_state_repeats=1000000)
+log_dir = ./results/monitor/A2C_50000/blackbox_w2h2m2M2_noundo_puzzle_state/
+model_dir = ./results/models/A2C_50000/blackbox_w2h2m2M2_puzzle_state_reward/
+Using cpu device
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 380      |
+|    ep_rew_mean        | 100      |
+| time/                 |          |
+|    fps                | 49       |
+|    iterations         | 100      |
+|    time_elapsed       | 10       |
+|    total_timesteps    | 500      |
+| train/                |          |
+|    entropy_loss       | -1.52    |
+|    explained_variance | 0        |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 99       |
+|    policy_loss        | 0.00907  |
+|    value_loss         | 4.39e-05 |
+------------------------------------
+Num timesteps: 1000
+Best mean length: inf - Last mean length per episode: 324.00
+Saving new best model to ./results/monitor/A2C_50000/blackbox_w2h2m2M2_noundo_puzzle_state/best_model_blackbox
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 324      |
+|    ep_rew_mean        | 100      |
+| time/                 |          |
+|    fps                | 48       |
+|    iterations         | 200      |
+|    time_elapsed       | 20       |
+|    total_timesteps    | 1000     |
+| train/                |          |
+|    entropy_loss       | -1.59    |
+|    explained_variance | 0        |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 199      |
+|    policy_loss        | -0.0214  |
+|    value_loss         | 0.000199 |
+------------------------------------
+-------------------------------------
+| rollout/              |           |
+|    ep_len_mean        | 324       |
+|    ep_rew_mean        | 100       |
+| time/                 |           |
+|    fps                | 50        |
+|    iterations         | 300       |
+|    time_elapsed       | 29        |
+|    total_timesteps    | 1500      |
+| train/                |           |
+|    entropy_loss       | -1.49     |
+|    explained_variance | 0         |
+|    learning_rate      | 0.0007    |
+|    n_updates          | 299       |
+|    policy_loss        | -1.71e-07 |
+|    value_loss         | 1.84e-15  |
+-------------------------------------
