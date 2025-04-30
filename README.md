@@ -1,7 +1,7 @@
 # ECE570-Puzzles-Benchmarking
 Course Project for ECE 57000 - Introduction to Artificial Intelligence
 
-## Follow the following PUZZLES Guide to be able to install this project. CLoning this Github will clone the PUZZLES Github as well 
+## Follow the following PUZZLES Guide to be able to install this project. The code exists in thr **rlp_code/** directory 
 
 # PUZZLES: A Benchmark for Neural Algorithmic Reasoning
 
